@@ -96,9 +96,7 @@ class VotoServiceTest {
         when(pautaService.buscarPorId(1L)).thenReturn(pauta);
         when(associadoService.buscarPorId(1L)).thenReturn(associado);
 
-        assertThrows(RegistroInvalidoException.class, () -> {
-            votoService.salvar(votoInput);
-        });
+        assertThrows(RegistroInvalidoException.class, () -> votoService.salvar(votoInput));
 
         verify(pautaService).buscarPorId(1L);
     }

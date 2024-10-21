@@ -2,7 +2,6 @@ package com.dbserver.desafiovotacao.api.v1.controller;
 
 import com.dbserver.desafiovotacao.api.v1.model.dto.VotoDto;
 import com.dbserver.desafiovotacao.api.v1.model.input.VotoInput;
-import com.dbserver.desafiovotacao.api.v1.serializable.VotoDeserializable;
 import com.dbserver.desafiovotacao.api.v1.serializable.VotoSerializable;
 import com.dbserver.desafiovotacao.domain.exception.RegistroInvalidoException;
 import com.dbserver.desafiovotacao.domain.exception.RegistroNaoEncontradoException;
@@ -11,7 +10,6 @@ import com.dbserver.desafiovotacao.domain.service.VotoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +23,6 @@ public class VotoController {
 
     private final VotoService votoService;
     private final VotoSerializable votoSerializable;
-    private final VotoDeserializable votoDeserializable;
 
     @GetMapping
     @Transactional(readOnly = true)

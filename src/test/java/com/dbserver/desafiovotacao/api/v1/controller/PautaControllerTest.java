@@ -7,12 +7,10 @@ import com.dbserver.desafiovotacao.api.v1.serializable.PautaDeserializable;
 import com.dbserver.desafiovotacao.api.v1.serializable.PautaSerializable;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
 import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
-import com.dbserver.desafiovotacao.domain.repository.PautaRepository;
 import com.dbserver.desafiovotacao.domain.service.PautaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -48,9 +46,6 @@ class PautaControllerTest {
 
     @MockBean
     private PautaDeserializable pautaDeserializable;
-
-    @Autowired
-    private PautaController pautaController;
 
     @Test
     @DisplayName("Deve salvar uma pauta com sucesso")

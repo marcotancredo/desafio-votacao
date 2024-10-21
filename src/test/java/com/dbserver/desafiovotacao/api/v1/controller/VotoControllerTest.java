@@ -4,7 +4,6 @@ import com.dbserver.desafiovotacao.api.v1.model.dto.AssociadoDto;
 import com.dbserver.desafiovotacao.api.v1.model.dto.PautaDto;
 import com.dbserver.desafiovotacao.api.v1.model.dto.VotoDto;
 import com.dbserver.desafiovotacao.api.v1.model.input.VotoInput;
-import com.dbserver.desafiovotacao.api.v1.serializable.VotoDeserializable;
 import com.dbserver.desafiovotacao.api.v1.serializable.VotoSerializable;
 import com.dbserver.desafiovotacao.domain.model.Associado;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
@@ -45,9 +44,6 @@ class VotoControllerTest {
 
     @MockBean
     private VotoSerializable votoSerializable;
-
-    @MockBean
-    private VotoDeserializable votoDeserializable;
 
     @Test
     @DisplayName("Deve listar votos com sucesso")

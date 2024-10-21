@@ -11,7 +11,6 @@ import com.dbserver.desafiovotacao.domain.repository.PautaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -73,9 +72,8 @@ class PautaServiceTest {
     public void testBuscarPorId_NaoEncontrado() {
         when(pautaRepository.findById(1L)).thenReturn(Optional.empty());
 
-        RegistroNaoEncontradoException exception = assertThrows(RegistroNaoEncontradoException.class, () -> {
-            pautaService.buscarPorId(1L);
-        });
+        RegistroNaoEncontradoException exception =
+                assertThrows(RegistroNaoEncontradoException.class, () -> pautaService.buscarPorId(1L));
 
         assertEquals("Não foi possível localizar pauta com o id: [1].", exception.getMessage());
     }
@@ -128,9 +126,8 @@ class PautaServiceTest {
 
         when(pautaRepository.findById(pautaId)).thenReturn(Optional.empty());
 
-        RegistroNaoEncontradoException exception = assertThrows(RegistroNaoEncontradoException.class, () -> {
-            pautaService.abrirVotacao(pautaId, LocalDateTime.now().plusMinutes(5));
-        });
+        RegistroNaoEncontradoException exception =
+                assertThrows(RegistroNaoEncontradoException.class, () -> pautaService.abrirVotacao(pautaId, LocalDateTime.now().plusMinutes(5)));
 
         verify(pautaRepository).findById(pautaId);
         assertEquals(exception.getMessage(), "Não foi possível localizar pauta com o id: [1].");
@@ -145,9 +142,8 @@ class PautaServiceTest {
 
         when(pautaRepository.findById(1L)).thenReturn(Optional.of(pauta));
 
-        RegistroInvalidoException exception = assertThrows(RegistroInvalidoException.class, () -> {
-            pautaService.abrirVotacao(1L, LocalDateTime.now().plusMinutes(5));
-        });
+        RegistroInvalidoException exception =
+                assertThrows(RegistroInvalidoException.class, () -> pautaService.abrirVotacao(1L, LocalDateTime.now().plusMinutes(5)));
 
         verify(pautaRepository).findById(1L);
         assertEquals(exception.getMessage(), "Já existe uma sessão com votação aberta para a pauta de id [1].");
@@ -162,9 +158,8 @@ class PautaServiceTest {
 
         when(pautaRepository.findById(1L)).thenReturn(Optional.of(pauta));
 
-        RegistroInvalidoException exception = assertThrows(RegistroInvalidoException.class, () -> {
-            pautaService.abrirVotacao(1L, LocalDateTime.now().plusMinutes(5));
-        });
+        RegistroInvalidoException exception =
+                assertThrows(RegistroInvalidoException.class, () -> pautaService.abrirVotacao(1L, LocalDateTime.now().plusMinutes(5)));
 
         verify(pautaRepository).findById(1L);
         assertEquals(exception.getMessage(), "A sessão de votação para a pauta [1], já está encerrada.");
@@ -179,9 +174,8 @@ class PautaServiceTest {
 
         LocalDateTime dataHoraFimInvalida = LocalDateTime.now().minusMinutes(5);
 
-        RegistroInvalidoException exception = assertThrows(RegistroInvalidoException.class, () -> {
-            pautaService.abrirVotacao(1L, dataHoraFimInvalida);
-        });
+        RegistroInvalidoException exception =
+                assertThrows(RegistroInvalidoException.class, () -> pautaService.abrirVotacao(1L, dataHoraFimInvalida));
 
         verify(pautaRepository).findById(1L);
         assertEquals(exception.getMessage(), "Data/hora de finalização da sessão não pode ser anterior a data/hora de início.");

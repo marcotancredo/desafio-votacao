@@ -4,8 +4,6 @@ import com.dbserver.desafiovotacao.api.v1.model.dto.AssociadoDto;
 import com.dbserver.desafiovotacao.api.v1.model.input.AssociadoInput;
 import com.dbserver.desafiovotacao.api.v1.serializable.AssociadoDeserializable;
 import com.dbserver.desafiovotacao.api.v1.serializable.AssociadoSerializable;
-import com.dbserver.desafiovotacao.domain.exception.RegistroInvalidoException;
-import com.dbserver.desafiovotacao.domain.exception.RegistroNaoEncontradoException;
 import com.dbserver.desafiovotacao.domain.model.Associado;
 import com.dbserver.desafiovotacao.domain.service.AssociadoService;
 import org.junit.jupiter.api.DisplayName;
@@ -16,9 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,8 +23,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -48,9 +42,6 @@ class AssociadoControllerTest {
 
     @MockBean
     private AssociadoDeserializable associadoDeserializable;
-
-    @Autowired
-    private AssociadoController associadoController;
 
     @Autowired
     private MockMvc mockMvc;
@@ -145,12 +136,5 @@ class AssociadoControllerTest {
         associadoDto.setNome("João da Silva");
         associadoDto.setCpf("76119500022");
         return associadoDto;
-    }
-
-
-    private static void createAssociadoInput() {
-        AssociadoInput associadoInput = new AssociadoInput();
-        associadoInput.setCpf("76119500022");
-        associadoInput.setNome("João da Silva");
     }
 }

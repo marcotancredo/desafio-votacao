@@ -3,7 +3,6 @@ package com.dbserver.desafiovotacao.domain.service;
 import com.dbserver.desafiovotacao.api.v1.model.ContagemVotos;
 import com.dbserver.desafiovotacao.domain.exception.RegistroInvalidoException;
 import com.dbserver.desafiovotacao.domain.exception.RegistroNaoEncontradoException;
-import com.dbserver.desafiovotacao.domain.model.Associado;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
 import com.dbserver.desafiovotacao.domain.model.Voto;
 import com.dbserver.desafiovotacao.domain.model.enums.Situacao;

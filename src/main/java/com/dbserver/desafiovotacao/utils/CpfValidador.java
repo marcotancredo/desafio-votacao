@@ -8,7 +8,7 @@ public class CpfValidador {
     /**
      * Valida CPF
      *
-     * @param cpf
+     * @param cpf - Cpf a ser validado
      * @return Retorna se o cpf informado está válido
      */
     public static boolean isValido(String cpf) {
