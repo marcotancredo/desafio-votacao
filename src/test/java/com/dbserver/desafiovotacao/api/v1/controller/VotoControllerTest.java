@@ -8,7 +8,7 @@ import com.dbserver.desafiovotacao.api.v1.serializable.VotoSerializable;
 import com.dbserver.desafiovotacao.domain.model.Associado;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
 import com.dbserver.desafiovotacao.domain.model.Voto;
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import com.dbserver.desafiovotacao.domain.model.enums.TipoVoto;
 import com.dbserver.desafiovotacao.domain.service.VotoService;
 import org.junit.jupiter.api.DisplayName;
@@ -135,7 +135,7 @@ class VotoControllerTest {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
         pauta.setDescricao("Pauta teste");
-        pauta.setSituacao(Situacao.AGUARDANDO_ABERTURA);
+        pauta.setSituacao(SituacaoPauta.AGUARDANDO_ABERTURA);
         return pauta;
     }
 
@@ -143,7 +143,7 @@ class VotoControllerTest {
         PautaDto pautaDto = new PautaDto();
         pautaDto.setId(1L);
         pautaDto.setDescricao("Pauta teste");
-        pautaDto.setSituacao(Situacao.AGUARDANDO_ABERTURA);
+        pautaDto.setSituacao(SituacaoPauta.AGUARDANDO_ABERTURA);
         return pautaDto;
     }
 

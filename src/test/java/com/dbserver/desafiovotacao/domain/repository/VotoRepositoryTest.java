@@ -3,7 +3,7 @@ package com.dbserver.desafiovotacao.domain.repository;
 import com.dbserver.desafiovotacao.domain.model.Associado;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
 import com.dbserver.desafiovotacao.domain.model.Voto;
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import com.dbserver.desafiovotacao.domain.model.enums.TipoVoto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ class VotoRepositoryTest {
 
         Pauta pauta = new Pauta();
         pauta.setDescricao("Pauta para votação");
-        pauta.setSituacao(Situacao.VOTACAO_ABERTA);
+        pauta.setSituacao(SituacaoPauta.VOTACAO_ABERTA);
         pauta.setDataHoraInicio(LocalDateTime.now());
         pauta.setDataHoraFim(LocalDateTime.now().plusHours(1));
         pauta = pautaRepository.save(pauta);
@@ -61,7 +61,7 @@ class VotoRepositoryTest {
 
         Pauta pauta = new Pauta();
         pauta.setDescricao("Pauta para votação");
-        pauta.setSituacao(Situacao.VOTACAO_ABERTA);
+        pauta.setSituacao(SituacaoPauta.VOTACAO_ABERTA);
         pauta.setDataHoraInicio(LocalDateTime.now());
         pauta.setDataHoraFim(LocalDateTime.now().plusHours(1));
         pauta = pautaRepository.save(pauta);

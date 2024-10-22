@@ -1,6 +1,6 @@
 package com.dbserver.desafiovotacao.domain.model;
 
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +25,7 @@ public class Pauta {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Situacao situacao = Situacao.AGUARDANDO_ABERTURA;
+    private SituacaoPauta situacao = SituacaoPauta.AGUARDANDO_ABERTURA;
 
     @Column(name = "dh_inicio")
     private LocalDateTime dataHoraInicio;

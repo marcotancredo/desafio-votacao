@@ -6,7 +6,7 @@ import com.dbserver.desafiovotacao.domain.exception.RegistroNaoEncontradoExcepti
 import com.dbserver.desafiovotacao.domain.model.Associado;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
 import com.dbserver.desafiovotacao.domain.model.Voto;
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import com.dbserver.desafiovotacao.domain.repository.VotoRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -53,12 +53,12 @@ public class VotoService {
     }
 
     private void validarSituacao(Pauta pauta) throws RegistroInvalidoException {
-        if (Objects.equals(pauta.getSituacao(), Situacao.AGUARDANDO_ABERTURA)) {
+        if (Objects.equals(pauta.getSituacao(), SituacaoPauta.AGUARDANDO_ABERTURA)) {
             logger.error(SESSAO_NAO_ESTA_ABERTA);
             throw new RegistroInvalidoException(SESSAO_NAO_ESTA_ABERTA);
         }
 
-        if (Objects.equals(pauta.getSituacao(), Situacao.VOTACAO_ENCERRADA)) {
+        if (Objects.equals(pauta.getSituacao(), SituacaoPauta.VOTACAO_ENCERRADA)) {
             logger.error(SESSAO_ENCERRADA);
             throw new RegistroInvalidoException(SESSAO_ENCERRADA);
         }

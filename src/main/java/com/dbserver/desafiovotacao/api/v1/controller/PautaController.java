@@ -8,7 +8,7 @@ import com.dbserver.desafiovotacao.api.v1.serializable.PautaSerializable;
 import com.dbserver.desafiovotacao.domain.exception.RegistroInvalidoException;
 import com.dbserver.desafiovotacao.domain.exception.RegistroNaoEncontradoException;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import com.dbserver.desafiovotacao.domain.service.PautaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -48,7 +48,7 @@ public class PautaController {
 
     @GetMapping
     @Transactional(readOnly = true)
-    public ResponseEntity<Page<PautaDto>> listar(@RequestParam(required = false) final Situacao situacao,
+    public ResponseEntity<Page<PautaDto>> listar(@RequestParam(required = false) final SituacaoPauta situacao,
                                                  @RequestParam(required = false, defaultValue = "20") final int limit,
                                                  @RequestParam(required = false, defaultValue = "0") final int offset) {
         Page<Pauta> pautasList = pautaService.listar(situacao, limit, offset);

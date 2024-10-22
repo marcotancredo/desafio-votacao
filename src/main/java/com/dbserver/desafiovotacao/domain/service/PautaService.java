@@ -5,7 +5,7 @@ import com.dbserver.desafiovotacao.domain.exception.RegistroInvalidoException;
 import com.dbserver.desafiovotacao.domain.exception.RegistroNaoEncontradoException;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
 import com.dbserver.desafiovotacao.domain.model.Voto;
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import com.dbserver.desafiovotacao.domain.repository.PautaRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -52,7 +52,7 @@ public class PautaService {
         });
     }
 
-    public Page<Pauta> listar(Situacao situacao, int limit, int offset) {
+    public Page<Pauta> listar(SituacaoPauta situacao, int limit, int offset) {
         PageRequest pageRequest = PageRequest.of(offset, limit);
         if (Objects.isNull(situacao)) {
             return pautaRepository.findAll(pageRequest);
@@ -74,7 +74,7 @@ public class PautaService {
         try {
             Pauta pauta = buscarPorId(id);
             validarSituacao(pauta);
-            pauta.setSituacao(Situacao.VOTACAO_ABERTA);
+            pauta.setSituacao(SituacaoPauta.VOTACAO_ABERTA);
             pauta.setDataHoraInicio(LocalDateTime.now());
             if (Objects.isNull(dataHoraFim)) {
                 dataHoraFim = pauta.getDataHoraInicio().plusMinutes(1);
@@ -97,13 +97,13 @@ public class PautaService {
     }
 
     private void validarSituacao(Pauta pauta) throws RegistroInvalidoException {
-        if (Objects.equals(pauta.getSituacao(), Situacao.VOTACAO_ABERTA)) {
+        if (Objects.equals(pauta.getSituacao(), SituacaoPauta.VOTACAO_ABERTA)) {
             String msg = MessageFormat.format(JA_EXISTE_SESSAO_ABERTA, pauta.getId());
             logger.error(msg);
             throw new RegistroInvalidoException(msg);
         }
 
-        if (Objects.equals(pauta.getSituacao(), Situacao.VOTACAO_ENCERRADA)) {
+        if (Objects.equals(pauta.getSituacao(), SituacaoPauta.VOTACAO_ENCERRADA)) {
             String msg = MessageFormat.format(VOTACAO_JA_ENCERRADA, pauta.getId());
             logger.error(msg);
             throw new RegistroInvalidoException(msg);
@@ -121,11 +121,11 @@ public class PautaService {
 
     @Transactional
     public void encerrarVotacao() {
-        List<Pauta> pautas = pautaRepository.findBySituacao(Situacao.VOTACAO_ABERTA);
+        List<Pauta> pautas = pautaRepository.findBySituacao(SituacaoPauta.VOTACAO_ABERTA);
         pautas.forEach(pauta -> {
             logger.info(INICIANDO_ENCERRAMENTO, pauta.getId());
             if (pauta.getDataHoraFim().isBefore(LocalDateTime.now())) {
-                pauta.setSituacao(Situacao.VOTACAO_ENCERRADA);
+                pauta.setSituacao(SituacaoPauta.VOTACAO_ENCERRADA);
                 salvar(pauta);
                 logger.info(VOTACAO_ENCERRADA_COM_SUCESSO);
                 return;

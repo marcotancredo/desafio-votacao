@@ -6,7 +6,7 @@ import com.dbserver.desafiovotacao.api.v1.model.input.PautaInput;
 import com.dbserver.desafiovotacao.api.v1.serializable.PautaDeserializable;
 import com.dbserver.desafiovotacao.api.v1.serializable.PautaSerializable;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import com.dbserver.desafiovotacao.domain.service.PautaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -72,7 +72,7 @@ class PautaControllerTest {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
         pauta.setDescricao("Pauta teste");
-        pauta.setSituacao(Situacao.AGUARDANDO_ABERTURA);
+        pauta.setSituacao(SituacaoPauta.AGUARDANDO_ABERTURA);
 
         when(pautaService.buscarPorId(anyLong())).thenReturn(pauta);
         when(pautaSerializable.toDto(any(Pauta.class))).thenReturn(new PautaDto());
@@ -90,12 +90,12 @@ class PautaControllerTest {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
         pauta.setDescricao("Pauta teste");
-        pauta.setSituacao(Situacao.AGUARDANDO_ABERTURA);
+        pauta.setSituacao(SituacaoPauta.AGUARDANDO_ABERTURA);
 
         PautaDto pautaDto = new PautaDto();
         pautaDto.setId(1L);
         pautaDto.setDescricao("Pauta teste");
-        pautaDto.setSituacao(Situacao.AGUARDANDO_ABERTURA);
+        pautaDto.setSituacao(SituacaoPauta.AGUARDANDO_ABERTURA);
 
         Page<Pauta> pageMock = new PageImpl<>(Collections.singletonList(pauta));
 

@@ -6,7 +6,7 @@ import com.dbserver.desafiovotacao.domain.exception.RegistroNaoEncontradoExcepti
 import com.dbserver.desafiovotacao.domain.model.Associado;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
 import com.dbserver.desafiovotacao.domain.model.Voto;
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import com.dbserver.desafiovotacao.domain.model.enums.TipoVoto;
 import com.dbserver.desafiovotacao.domain.repository.VotoRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -119,7 +119,7 @@ class VotoServiceTest {
     private static Pauta createPautaEncerrada() {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
-        pauta.setSituacao(Situacao.VOTACAO_ENCERRADA);
+        pauta.setSituacao(SituacaoPauta.VOTACAO_ENCERRADA);
         return pauta;
     }
 
@@ -148,14 +148,14 @@ class VotoServiceTest {
     private static Pauta createPautaAberta() {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
-        pauta.setSituacao(Situacao.VOTACAO_ABERTA);
+        pauta.setSituacao(SituacaoPauta.VOTACAO_ABERTA);
         return pauta;
     }
 
     private static Pauta createPautaAguardandoAbertura() {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
-        pauta.setSituacao(Situacao.AGUARDANDO_ABERTURA);
+        pauta.setSituacao(SituacaoPauta.AGUARDANDO_ABERTURA);
         return pauta;
     }
 

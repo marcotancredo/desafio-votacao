@@ -1,6 +1,6 @@
 package com.dbserver.desafiovotacao.domain.model.enums;
 
-public enum Situacao {
+public enum SituacaoPauta {
     AGUARDANDO_ABERTURA,
     VOTACAO_ABERTA,
     VOTACAO_ENCERRADA

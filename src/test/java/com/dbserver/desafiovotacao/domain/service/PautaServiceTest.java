@@ -5,7 +5,7 @@ import com.dbserver.desafiovotacao.domain.exception.RegistroInvalidoException;
 import com.dbserver.desafiovotacao.domain.exception.RegistroNaoEncontradoException;
 import com.dbserver.desafiovotacao.domain.model.Pauta;
 import com.dbserver.desafiovotacao.domain.model.Voto;
-import com.dbserver.desafiovotacao.domain.model.enums.Situacao;
+import com.dbserver.desafiovotacao.domain.model.enums.SituacaoPauta;
 import com.dbserver.desafiovotacao.domain.model.enums.TipoVoto;
 import com.dbserver.desafiovotacao.domain.repository.PautaRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -85,7 +85,7 @@ class PautaServiceTest {
         Page<Pauta> pageMock = mock(Page.class);
         when(pautaRepository.findAll(any(Example.class), eq(pageRequest))).thenReturn(pageMock);
 
-        Page<Pauta> resultado = pautaService.listar(Situacao.VOTACAO_ABERTA, 10, 0);
+        Page<Pauta> resultado = pautaService.listar(SituacaoPauta.VOTACAO_ABERTA, 10, 0);
 
         assertNotNull(resultado);
         verify(pautaRepository).findAll(any(Example.class), eq(pageRequest));
@@ -107,7 +107,7 @@ class PautaServiceTest {
     @Test
     @DisplayName("Abrir votação com sucesso")
     public void testAbrirVotacao_Valida() throws RegistroNaoEncontradoException, RegistroInvalidoException {
-        Pauta pauta = createPauta(Situacao.AGUARDANDO_ABERTURA, null);
+        Pauta pauta = createPauta(SituacaoPauta.AGUARDANDO_ABERTURA, null);
 
         when(pautaRepository.findById(1L)).thenReturn(Optional.of(pauta));
         when(pautaRepository.save(any())).thenReturn(pauta);
@@ -115,7 +115,7 @@ class PautaServiceTest {
         Pauta resultado = pautaService.abrirVotacao(1L, LocalDateTime.now().plusMinutes(5));
 
         assertNotNull(resultado);
-        assertEquals(Situacao.VOTACAO_ABERTA, resultado.getSituacao());
+        assertEquals(SituacaoPauta.VOTACAO_ABERTA, resultado.getSituacao());
         verify(pautaRepository).save(pauta);
     }
 
@@ -138,7 +138,7 @@ class PautaServiceTest {
     public void testAbrirVotacao_SessaoJaAberta() {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
-        pauta.setSituacao(Situacao.VOTACAO_ABERTA);
+        pauta.setSituacao(SituacaoPauta.VOTACAO_ABERTA);
 
         when(pautaRepository.findById(1L)).thenReturn(Optional.of(pauta));
 
@@ -154,7 +154,7 @@ class PautaServiceTest {
     public void testAbrirVotacao_SessaoJaEncerrada() {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
-        pauta.setSituacao(Situacao.VOTACAO_ENCERRADA);
+        pauta.setSituacao(SituacaoPauta.VOTACAO_ENCERRADA);
 
         when(pautaRepository.findById(1L)).thenReturn(Optional.of(pauta));
 
@@ -168,7 +168,7 @@ class PautaServiceTest {
     @Test
     @DisplayName("Deve lançar RegistroInvalidoException quando a data/hora de fim for inválida")
     public void testAbrirVotacao_DataHoraFimInvalida() {
-        Pauta pauta = createPauta(Situacao.AGUARDANDO_ABERTURA, LocalDateTime.now().minusMinutes(10));
+        Pauta pauta = createPauta(SituacaoPauta.AGUARDANDO_ABERTURA, LocalDateTime.now().minusMinutes(10));
 
         when(pautaRepository.findById(1L)).thenReturn(Optional.of(pauta));
 
@@ -205,7 +205,7 @@ class PautaServiceTest {
     @Test
     @DisplayName("Encerrar votação com sucesso")
     public void testEncerrarVotacao() {
-        Pauta pauta = createPauta(Situacao.VOTACAO_ABERTA, LocalDateTime.now().minusMinutes(10));
+        Pauta pauta = createPauta(SituacaoPauta.VOTACAO_ABERTA, LocalDateTime.now().minusMinutes(10));
 
         List<Pauta> pautas = List.of(pauta);
         when(pautaRepository.findBySituacao(any())).thenReturn(pautas);
@@ -217,16 +217,16 @@ class PautaServiceTest {
 
 
     private static Pauta createPauta() {
-        return createPauta(Situacao.VOTACAO_ENCERRADA, LocalDateTime.now());
+        return createPauta(SituacaoPauta.VOTACAO_ENCERRADA, LocalDateTime.now());
     }
 
-    private static Pauta createPauta(Situacao situacao, LocalDateTime dataHoraInicio) {
+    private static Pauta createPauta(SituacaoPauta situacao, LocalDateTime dataHoraInicio) {
         Pauta pauta = new Pauta();
         pauta.setId(1L);
         pauta.setDescricao("Pauta para teste");
         pauta.setSituacao(situacao);
         pauta.setDataHoraInicio(dataHoraInicio);
-        if (Objects.equals(Situacao.VOTACAO_ABERTA, situacao)) {
+        if (Objects.equals(SituacaoPauta.VOTACAO_ABERTA, situacao)) {
             pauta.setDataHoraFim(dataHoraInicio.plusMinutes(1));
         }
         return pauta;
