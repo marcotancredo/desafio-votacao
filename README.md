@@ -58,6 +58,15 @@ Use uma ferramenta de testes de API para realizar as requisições. Exemplos:
 A documentação Swagger da API estará disponível após a execução da aplicação no seguinte endereço:  
 [Swagger UI](http://localhost:8080/desafio/api/swagger-ui/index.html#/)
 
+## 7. Timezone
+
+Foi encontrada uma diferença de comportamento entre a aplicação rodando no Docker e localmente. Caso seja necessário ajustar o fuso horário, adicione a seguinte propriedade no `application.yml` com o timezone desejado:
+
+```yaml
+application:
+  timezone: UTC
+```
+
 # Versionamento de API na URL
 
 ## Principais Vantagens
